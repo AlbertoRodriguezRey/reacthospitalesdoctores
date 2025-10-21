@@ -9,14 +9,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MenuHospitales from './components/MenuHospitales';
 import Home from './components/Home';
-
+import Router from './Router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <MenuHospitales />
-    <Home />
-  </React.StrictMode>
+    <Router />
 );
 
 // If you want to start measuring performance in your app, pass a function
