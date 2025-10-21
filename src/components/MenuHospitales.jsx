@@ -49,6 +49,11 @@ export default class MenuHospitales extends Component {
                                     Home
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink className="nav-link active" aria-current="page" to="/create">
+                                    Crear Hospital
+                                </NavLink>
+                            </li>
                             <li className="nav-item dropdown">
                                 <a
                                     className="nav-link dropdown-toggle"
@@ -71,7 +76,7 @@ export default class MenuHospitales extends Component {
                                             )
                                         })
                                     }
-                                    <li>
+                                    {/* <li>
                                         <a className="dropdown-item" href="#">
                                             Another action
                                         </a>
@@ -83,7 +88,7 @@ export default class MenuHospitales extends Component {
                                         <a className="dropdown-item" href="#">
                                             Something else here
                                         </a>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </li>
                         </ul>
