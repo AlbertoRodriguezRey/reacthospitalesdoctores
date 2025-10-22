@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import Global from './Global'
-import axios from 'axios'
+import Global from '../Global';
+import axios from 'axios';
 
 export default class DetallesDoctor extends Component {
-    url = Global.apiDoctores
+    url = Global.apiDoctores;
     state = {
         doctor: null
     }
 
     findDoctor = () => {
-        let request = "api/doctores/" + this.props.iddoctor
+        let request = "api/doctores/" + this.props.iddoctor;
         axios.get(this.url + request).then(response => {
-            console.log("Leyendo doctor")
+            console.log("Leyendo doctor");
             this.setState({
                 doctor: response.data
             })
@@ -23,7 +23,7 @@ export default class DetallesDoctor extends Component {
     }
 
     componentDidUpdate = (oldProps) => {
-        if (oldProps.iddoctor !== this.props.iddoctor) {
+        if (oldProps.iddoctor != this.props.iddoctor){
             this.findDoctor();
         }
     }
@@ -32,20 +32,20 @@ export default class DetallesDoctor extends Component {
       <div>
         <h1>Detalles Doctor</h1>
         {
-            this.state.doctor &&
-            (<ul>
+            this.state.doctor && 
+            (<ul className='list-group'>
                 <li className='list-group-item'>
-                    Apellido: {this.state.doctor.apellido}
+                    Apellido: {this.state.doctor.apellido}                    
                 </li>
                 <li className='list-group-item'>
                     Especialidad: {this.state.doctor.especialidad}
-                </li>
+                </li>                
                 <li className='list-group-item'>
                     Salario: {this.state.doctor.salario}
-                </li>
+                </li>    
                 <li className='list-group-item'>
-                    Id Hospital: {this.state.doctor.idHospital}
-                </li>
+                    Id hospital: {this.state.doctor.idHospital}
+                </li>                            
             </ul>)
         }
       </div>

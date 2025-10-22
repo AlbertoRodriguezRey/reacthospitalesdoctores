@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import Global from './Global'
-import DetallesDoctor from './DetallesDoctor'
 
+import React, { Component } from 'react'
+import axios from 'axios';
+import Global from '../Global';
+import DetallesDoctor from './DetallesDoctor';
 export default class Doctores extends Component {
-    url = Global.apiDoctores
+    url = Global.apiDoctores;
 
     state = {
         doctores: [],
@@ -12,9 +12,9 @@ export default class Doctores extends Component {
     }
 
     loadDoctoresHospital = () => {
-        let request = "api/doctores/doctoreshospital/" + this.props.idhospital
+        let request = "api/doctores/doctoreshospital/" + this.props.idhospital;
         axios.get(this.url + request).then(response => {
-            console.log("Leyendo doctores")
+            console.log("Leyendo doctores");
             this.setState({
                 doctores: response.data
             })
@@ -22,58 +22,64 @@ export default class Doctores extends Component {
     }
 
     componentDidMount = () => {
-        this.loadDoctoresHospital()
+        this.loadDoctoresHospital();
     }
 
     componentDidUpdate = (oldProps) => {
-        if (oldProps.idhospital !== this.props.idhospital) {
+        if (oldProps.idhospital != this.props.idhospital){
             this.setState({
                 idDoctor: -1
             })
-            this.loadDoctoresHospital()
+            this.loadDoctoresHospital();
         }
     }
 
-    render() {
-        return (
-            <div>
+  render() {
+    return (
+      <div>
+        {
+            this.state.idDoctor != -1 && 
+            <DetallesDoctor iddoctor={this.state.idDoctor}/>
+        }
+        
+        <h2>
+            Id Hospital: 
+            <span style={{color:"red"}}>
+                {this.props.idhospital}
+            </span>
+        </h2>
+        <table className='table table-primary'>
+            <thead>
+                <tr>
+                    <th>Apellido</th>
+                    <th>Especialidad</th>
+                    <th>Salario</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
                 {
-                    this.state.idDoctor !== -1 &&
-                    <DetallesDoctor iddoctor={this.state.idDoctor} />
+                    this.state.doctores.map((doctor, index) => {
+                        return(<tr key={index}>
+                            <td>{doctor.apellido}</td>
+                            <td>{doctor.especialidad}</td>
+                            <td>{doctor.salario}</td>
+                            <td>
+                                <button className='btn btn-info'
+                                onClick={() => {
+                                    this.setState({
+                                        idDoctor: doctor.idDoctor
+                                    })
+                                }}>
+                                    Detalles
+                                </button>
+                            </td>
+                        </tr>)
+                    })
                 }
-                <h2 style={{color: "red"}}>
-                    Doctores hospital: {this.props.idhospital}
-                </h2>
-                <table className='table table-striped'>
-                    <thead>
-                        <tr>
-                            <th>Apellido</th>
-                            <th>Especialidad</th>
-                            <th>Salario</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.doctores.map((doctor, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{doctor.apellido}</td>
-                                        <td>{doctor.especialidad}</td>
-                                        <td>{doctor.salario}</td>
-                                        <button className="btn btn-info" onClick={() => {
-                                            this.setState({
-                                                idDoctor: doctor.idDoctor
-                                            })
-                                        }}>Detalles
-                                            
-                                        </button>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
-            </div>
-        )
-    }
+            </tbody>
+        </table>
+      </div>
+    )
+  }
 }
